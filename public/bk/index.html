@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firts pgm</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <section>
+        <h2>Sobre este proyecto</h2>
+        <p>
+            Este web server fue desarrollado en <strong>Node.js + TypeScript</strong> como parte de mi primer proyecto
+            práctico siguiendo un curso de Udemy.
+            El objetivo fue construir una base sólida y moderna para servicios web, aplicando buenas prácticas desde el
+            inicio:
+            <strong>tipado estricto</strong>, <strong>arquitectura limpia</strong> y un <strong>pipeline simple de
+                calidad</strong>.
+        </p>
+
+        <h3>Tecnologías y enfoque</h3>
+        <ul>
+            <li><strong>Stack:</strong> <code>Node.js</code>, <code>TypeScript</code>,
+                (<code>Express</code>/<code>Fastify</code>), <code>dotenv</code>.</li>
+            <li><strong>Arquitectura:</strong> rutas → controladores → servicios → capa de datos; <em>middlewares</em>
+                para <strong>validación</strong>, <strong>manejo de errores</strong> y <strong>logging</strong>.</li>
+            <li><strong>Calidad:</strong> <code>ESLint</code> + <code>Prettier</code>, scripts de <code>npm</code> para
+                <code>lint</code>/<code>build</code>/<code>test</code>.
+            </li>
+            <li><strong>Documentación:</strong> endpoints descritos con <strong>OpenAPI/Swagger</strong>.</li>
+            <li><strong>Pruebas:</strong> (<code>Jest</code>/<code>Vitest</code>) para unidades críticas.</li>
+            <li><strong>Ops:</strong> variables de entorno, configuración por ambiente y opción de despliegue con
+                <strong>Docker</strong>.
+            </li>
+        </ul>
+
+        <h3>Qué resuelve</h3>
+        <p>
+            Provee endpoints <strong>REST</strong> básicos listos para ampliar (salud, recursos <strong>CRUD</strong> y
+            utilidades), con manejo consistente de respuestas y errores,
+            pensado para crecer sin perder mantenibilidad.
+        </p>
+
+        <h3>Próximos pasos</h3>
+        <p>
+            Autenticación <strong>JWT</strong>, pruebas de integración, <strong>cacheo</strong> selectivo,
+            <strong>métricas</strong> (Prometheus) y <strong>CI/CD</strong>.
+        </p>
+
+        <blockquote>
+            Si quieres revisar o proponer mejoras, ¡bienvenido! Este proyecto nació para aprender haciendo y seguir
+            iterando con disciplina técnica.
+        </blockquote>
+    </section>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
