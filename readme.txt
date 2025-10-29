@@ -29,6 +29,6 @@
     config 
 dentro de esta el archivo 
     envs.ts
-9.4.-
+9.4.- clonar .env a .env.template
 
 
