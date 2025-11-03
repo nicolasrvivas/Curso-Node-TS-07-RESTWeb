@@ -34,6 +34,13 @@ dentro de esta el archivo
 9.4.- clonar .env a .env.template
 
 ----  RestServer ---
+https://curso-node-ts-07-restweb-production.up.railway.app/marvel
+https://curso-node-ts-07-restweb-production.up.railway.app/api/todos
 
 
+Git
+https://github.com/nicolasrvivas/Curso-Node-TS-07-RESTWeb/tree/main
+git status 
+git add . 
+git push origin main
 
