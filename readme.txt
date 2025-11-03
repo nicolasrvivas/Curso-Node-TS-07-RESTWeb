@@ -1,3 +1,5 @@
+0.- Construir los modulos de node
+    npm i
 1.- Generar el package.json con:
     npm init -y
 2.- Utilizando el material adjunto
@@ -30,5 +32,8 @@
 dentro de esta el archivo 
     envs.ts
 9.4.- clonar .env a .env.template
+
+----  RestServer ---
+
 
 
