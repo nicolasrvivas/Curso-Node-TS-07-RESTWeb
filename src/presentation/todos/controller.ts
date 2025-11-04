@@ -1,76 +1,87 @@
 import { Request, Response } from "express";
-
-const todos = [
-    { id: 1, text: 'Buy milk', completedAt: new Date() },
-    { id: 2, text: 'Buy bread', completedAt: null },
-    { id: 3, text: 'Buy butter', completedAt: new Date() },
-];
+import { prisma } from "../../data/postgres";
+import { CreateTodoDto, UpdateTodoDto } from "../../domain/dtos";
 
 export class TodosController {
 
     //* DI Dependency inyection
     constructor() { }
 
-    public getTodos = (req: Request, res: Response) => {
+        
+    //* GET const todo = await prisma.todo.find();
+    public getTodos = async(req: Request, res: Response) => {
+        const todos = await prisma.todo.findMany();
         return res.json(todos);
     };
 
-    public getTodoById = (req: Request, res: Response) => {
+    //* GET ID
+    public getTodoById = async(req: Request, res: Response) => {
         const id = +req.params.id!;
-        const todo = todos.find(todo => todo.id === id);
         if (isNaN(id)) return res.status(400).json({ error: 'ID argumen is not a number' });
+
+        const todo = await prisma.todo.findFirst({
+            where: { id }
+        });
+
         return todo
             ? res.json(todo)
             : res.status(404).json({ error: `TODO with id ${id} not found` })
     };
 
-    public createTodos = (req: Request, res: Response) => {
-        const { text } = req.body;
+    //* POST
+    public createTodos = async(req: Request, res: Response) => {
+        const [error, createTodoDto] = CreateTodoDto.create(req.body);
+        if (error) return res.status(400).json({ error });
 
-        if (!text) return res.status(400).json({ error: 'text property is requerid' });
+        const todo = await prisma.todo.create({
+            data: createTodoDto!
+        });
 
-        const newTodo = {
-            id: todos.length + 1,
-            text: text,
-            completedAt: null
-        }
-
-        todos.push(newTodo);
-
-        res.json(newTodo);
+        res.json(todo);
     };
 
-    public updateTodo = (req: Request, res: Response) => {
+    //* PUT
+    public updateTodo = async(req: Request, res: Response) => {
 
         const id = +req.params.id!;
-        if (isNaN(id)) return res.status(400).json({ error: 'ID argumen is not a number' });
+        const [error, updateTodoDto] = UpdateTodoDto.create({...req.body, id});
 
-        const todo = todos.find(todo => todo.id === id);
+        if ( error ) return res.status(400).json({ error });
+
+        const todo = await prisma.todo.findFirst({
+            where: { id }
+        });
+
         if (!todo) return res.status(400).json({ error: `Todo with id ${id} not found` });
 
-        const { text, completedAt } = req.body;
-        // if (!text) return res.status(400).json({ error: 'text property is requerid' });
+        const updateTodo = await prisma.todo.update({
+            where: { id },
+            data: updateTodoDto!.values
+        });
 
-        todo.text = text || todo.text;
-        (completedAt === 'null')
-            ? todo.completedAt = null
-            : todo.completedAt = new Date(completedAt || todo.completedAt);
-
-        res.json(todo);
+        res.json(updateTodo);
     }
 
-    public deleteTodo = (req: Request, res: Response) => {
+    //* DELETE
+    public deleteTodo = async(req: Request, res: Response) => {
 
         const id = +req.params.id!;
         if (isNaN(id)) return res.status(400).json({ error: 'ID argumen is not a number' });
 
-        //! Referencia al objeto
-        const todo = todos.find(todo => todo.id === id);
+        const todo = await prisma.todo.findFirst({
+            where: { id }
+        });
+        
         if (!todo) return res.status(400).json({ error: `Todo with id ${id} not found` });
 
-        todos.splice(todos.indexOf(todo), 1);
+        const deleteTodo = await prisma.todo.delete({
+            where: { id }
+        });
 
-        res.json(todo);
+        (deleteTodo)
+            ? res.json( deleteTodo )
+            : res.status(400).json({ error: `Todo with id ${ id } not found`});
+
     }
 
 }

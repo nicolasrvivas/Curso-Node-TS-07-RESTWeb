@@ -44,3 +44,37 @@ git status
 git add . 
 git push origin main
 
+10.- Ingresar Postgres
+10.1.- Actualizar .env
+10.2.- Crear el archivo docker-compose.yml
+11.- Levantar docker compose
+```
+    dockr compose up -D
+```
+12.- Instalar prisma
+12.1.- comando
+    npm install prisma --save-dev
+12.2.- Setup prisma datasource provider postgres
+    npx prisma init --datasource-provider postgresql
+12.3.- Utilizar en el schema.prisma este databaseUrl -->> POSTGRES_URL
+12.4.- Elimina el que se generó al final en el .env
+12.5.- Actualizar el archivo prisma.config.
+    POSTGRES_URL
+12.5.- Generar el modelo de la base de datos en el schema.prisma
+```
+    model todo {
+        id          Init       @id @default(autoincrement())
+        text        String     @db.VarChar
+        completedAt DateTime?  @db.Timestamp()
+    }
+```
+12.6.- >gregar esta línea en el archivo prisma.config.ts
+    import "dotenv/config";
+12.7.- Migrar la db
+```
+    npx prisma migrate dev --name init
+```
+12.8.- Ejercutar
+    npm i -D prisma
+    npm i @prisma/client
+
