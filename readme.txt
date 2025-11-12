@@ -77,4 +77,47 @@ git push origin main
 12.8.- Ejercutar
     npm i -D prisma
     npm i @prisma/client
+13.- Modulo 16 Rest Clean Architecture
+13.0.- Crear entidad
+13.1.- en domain se crean las reglas 
+13.2.- en domain crear la carpeta entities dentro de esta todo.entity.ts
+13.3.- en domain crear la carpeta datasources se crean los origenes de datos
+13.4.- en domain crear la carpeta repositories métodos para poder llegar a datasources
+14.- Implementaciones
+14.1.- en src se genera la carpeta infratructure dentro de esta datasorce y en esta última el archivo todo.datasource.impl.ts
+15.- Casos de Uso
+15.1.- En domain, crear la carpeta use-cases dentro de esta todo
+15.2.- dento de todo crear los casos de Uso
+    create-todo.ts
+    delete-todo.ts
+    get-todo.ts
+    get-todos.ts
+    update-todo.ts
+16.- Rest Testing
+16.1.- Instalaciones de desarrollo (super test es útil para probar Express)
+    npm install -D jest @types/jest ts-jest supertest
+16.2.- Crear archivo de configuración de Jest
+    npx jest --init
+16.3.- En el archivo jest.config.js configurar
+    preset: 'ts-jest',
+    testEnvironment: "jest-environment-node",
+16.4.- Opcional - The paths to modules that run some code to configure or set up the testing environment before each test
+    setupFiles: [
+        "<rootDir>/setupTests.ts>"
+    ],
+16.5.- Crear scripts en el package.json
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+17.- Crear carpeta test, dentro de esta el archivo app.test.ts
+18.- Instalar dotenv-client
+    prisma:migrate:test
+18.1.- configurar en pakage.json 
+    "prisma:migrate:test": "dotenv -e .env.test -- npx prisma migrate deploy",
+    "test": "npm run prisma:migrate:test && jest",
+    "test:watch": "npm run prisma:migrate:test && jest --watch",
+    "test:coverage": "npm run prisma:migrate:test && jest --coverage",
+
+
+
 
